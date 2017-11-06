@@ -38,7 +38,7 @@ public class UserSqlProvider {
 		  }}.toString();
 	}
 	
-	public String getOneSql(@Param("id") String id) {
+	public String getOneSql(@Param("id") Long id) {
 		
 		return new SQL() {{
 		    SELECT("u.user_id, u.user_name, u.passwd, u.user_sex, u.nick_name");
@@ -50,12 +50,11 @@ public class UserSqlProvider {
 	public String insertUserSql() {
 		
 		return new SQL() {{
-		    INSERT_INTO ("m_user u");
-		    VALUES("u.user_id", "#{userId}");
-		    VALUES("u.user_name", "#{userName}");
-		    VALUES("u.passwd", "#{password}");
-		    VALUES("u.user_sex", "#{userSex}");
-		    VALUES("u.nick_name", "#{nickName}");
+		    INSERT_INTO ("m_user");
+		    VALUES("user_name", "#{userName}");
+		    VALUES("passwd", "#{password}");
+		    VALUES("user_sex", "#{userSex}");
+		    VALUES("nick_name", "#{nickName}");
 		  }}.toString();
 	}
 	
@@ -79,7 +78,7 @@ public class UserSqlProvider {
 		  }}.toString();
 	}
 	
-	public String deleteUserSql(@Param("id") String id) {
+	public String deleteUserSql(@Param("id") Long id) {
 		
 		return new SQL() {{
 			DELETE_FROM("m_user u");

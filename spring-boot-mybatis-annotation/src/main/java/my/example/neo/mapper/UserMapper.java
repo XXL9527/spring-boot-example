@@ -26,6 +26,16 @@ public interface UserMapper {
 	})
 	List<UserEntity> getAll();
 	
+	@SelectProvider(type=UserSqlProvider.class, method="getUsersSql")
+	@Results({
+		@Result(property = "userId",  column = "user_id"),
+		@Result(property = "userName",  column = "user_name"),
+		@Result(property = "password",  column = "passwd"),
+		@Result(property = "userSex",  column = "user_sex", javaType = UserSexEnum.class),
+		@Result(property = "nickName", column = "nick_name")
+	})
+	List<UserEntity> getList(UserEntity user);
+	
 	@SelectProvider(type=UserSqlProvider.class, method="getOneSql")
 	//@Select("SELECT * FROM users WHERE id = #{id}")
 	@Results({
@@ -38,7 +48,7 @@ public interface UserMapper {
 	UserEntity getOne(Long id);
 
 	@InsertProvider(type=UserSqlProvider.class, method="insertUserSql")
-	//@Insert("INSERT INTO users(userName,passWord,user_sex) VALUES(#{userName}, #{passWord}, #{userSex})")
+	//@Insert("INSERT INTO users(userName, passwd, user_sex, nick_name) VALUES(#{userName}, #{password}, #{userSex}, #{nickName})")
 	void insert(UserEntity user);
 
 	@UpdateProvider(type=UserSqlProvider.class, method="insertUserSql")
