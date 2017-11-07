@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="my.example.neo.mapper.UserMapper" >
+
+    <resultMap id="BaseResultMap" type="my.example.neo.entity.UserEntity" >
+        <id column="user_id" property="userId" jdbcType="BIGINT" />
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+        <result column="passwd" property="password" jdbcType="VARCHAR" />
+        <result column="user_sex" property="userSex" javaType="my.example.neo.enums.UserSexEnum"/>
+        <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <sql id="Base_Column_List" >
+        user_id, user_name, passwd, user_sex, nick_name
+    </sql>
+
+    <select id="getAll" resultMap="BaseResultMap"  >
+       SELECT 
+       		<include refid="Base_Column_List" />
+	   FROM 
+	   		m_user
+    </select>
+    
+    <select id="getList" resultMap="BaseResultMap" parameterType="my.example.neo.entity.UserEntity"  >
+       SELECT 
+       		<include refid="Base_Column_List" />
+	   FROM 
+	   		m_user
+	   WHERE
+	   		0 = 0
+	   		<if test="userName != null">or user_name = #{userName}</if>
+       		<if test="userSex != null">or user_sex = #{userSex}</if>
+       		<if test="nickName != null">or nick_name = #{nickName}</if>
+    </select>
+
+    <select id="getOne" parameterType="java.lang.Long" resultMap="BaseResultMap" >
+       SELECT 
+       		<include refid="Base_Column_List" />
+	   FROM 
+	   		m_user
+	   WHERE 
+	   		user_id = #{id}
+    </select>
+
+    <insert id="insert"  parameterType="my.example.neo.entity.UserEntity" >
+       INSERT INTO 
+       		m_user
+       		(user_name, passwd, user_sex, nick_name) 
+       VALUES
+       		(#{userName}, #{password}, #{userSex}, #{nickName})
+    </insert>
+    
+    <update id="update" parameterType="my.example.neo.entity.UserEntity" >
+       UPDATE 
+       		m_user 
+       SET 
+       	<if test="userName != null">user_name = #{userName},</if>
+       	<if test="password != null">passwd = #{password},</if>
+       	<if test="userSex != null">user_sex = #{userSex},</if>
+       	nick_name = #{nickName}
+       WHERE 
+       		user_id = #{userId}
+    </update>
+    
+    <delete id="delete" parameterType="java.lang.Long" >
+       DELETE FROM
+       		 m_user 
+       WHERE 
+       		 user_id = #{id}
+    </delete>
+
+</mapper>
