@@ -71,18 +71,16 @@ public class UserSqlProvider {
 		    if (user.getUserSex() != null) {
 		    	SET("u.user_sex = #{userSex}");
 		    }
-		    if (user.getNickName() != null) {
-		    	SET("u.nick_name = #{nickName}");
-		    }
-		    WHERE("u.user_id = #{id}");
+		    SET("u.nick_name = #{nickName}");
+		    WHERE("u.user_id = #{userId}");
 		  }}.toString();
 	}
 	
 	public String deleteUserSql(@Param("id") Long id) {
 		
 		return new SQL() {{
-			DELETE_FROM("m_user u");
-		    WHERE("u.user_id = #{id}");
+			DELETE_FROM("m_user");
+		    WHERE("user_id = #{id}");
 		  }}.toString();
 	}
 }

@@ -1,7 +1,5 @@
 package my.example.neo.mapper;
 
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,33 +16,37 @@ import my.example.neo.enums.UserSexEnum;
 public class UserMapperTest {
 
 	@Autowired
-	private UserMapper UserMapper;
+	private UserMapper userMapper;
 
 	@Test
 	public void testInsert() throws Exception {
 		
-		UserMapper.insert(new UserEntity("テスト０１", "pass01", UserSexEnum.MAN, "ト０１"));
-		UserMapper.insert(new UserEntity("テスト０２", "pass02", UserSexEnum.WOMAN, "ト０２"));
-		UserMapper.insert(new UserEntity("テスト０３", "pass03", UserSexEnum.OTHERS, "ト０３"));
+		userMapper.insert(new UserEntity("テスト０１", "pass01", UserSexEnum.MAN, "ト０１"));
+		userMapper.insert(new UserEntity("テスト０２", "pass02", UserSexEnum.WOMAN, "ト０２"));
+		userMapper.insert(new UserEntity("テスト０３", "pass03", UserSexEnum.OTHERS, "ト０３"));
 
-		Assert.assertEquals(3, UserMapper.getAll().size());
+		Assert.assertEquals(3, userMapper.getAll().size());
 	}
-
-	@Test
-	public void testQuery() throws Exception {
-		List<UserEntity> users = UserMapper.getAll();
-		
-		Assert.assertEquals(3, users.size());
-	}
-	
 	
 	@Test
 	public void testUpdate() throws Exception {
-		UserEntity user = UserMapper.getOne(101L);
-		System.out.println(user.toString());
-		user.setNickName("neo");
-		UserMapper.update(user);
-		Assert.assertTrue(("neo".equals(UserMapper.getOne(101L).getNickName())));
+		
+		String nickName = "neo";
+		UserEntity user = new UserEntity();
+		user.setUserId(101L);
+		user.setNickName(nickName);
+		
+		userMapper.update(user);
+		
+		UserEntity assertUser = userMapper.getOne(101L);
+		Assert.assertTrue((nickName.equals(assertUser.getNickName())));
 	}
 
+	@Test
+	public void testDelete() throws Exception {
+		userMapper.delete(101L);
+		
+		UserEntity assertUser = userMapper.getOne(101L);
+		Assert.assertNull(assertUser);
+	}
 }

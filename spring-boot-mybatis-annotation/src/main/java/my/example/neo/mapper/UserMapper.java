@@ -51,11 +51,11 @@ public interface UserMapper {
 	//@Insert("INSERT INTO users(userName, passwd, user_sex, nick_name) VALUES(#{userName}, #{password}, #{userSex}, #{nickName})")
 	void insert(UserEntity user);
 
-	@UpdateProvider(type=UserSqlProvider.class, method="insertUserSql")
+	@UpdateProvider(type=UserSqlProvider.class, method="updateUserSql")
 	//@Update("UPDATE users SET userName=#{userName},nick_name=#{nickName} WHERE id =#{id}")
 	void update(UserEntity user);
 
-	@DeleteProvider(type=UserSqlProvider.class, method="insertUserSql")
+	@DeleteProvider(type=UserSqlProvider.class, method="deleteUserSql")
 	//@Delete("DELETE FROM users WHERE id =#{id}")
 	void delete(Long id);
 }
