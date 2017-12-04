@@ -21,9 +21,9 @@ public class SpringSecurityUserDetailsService implements UserDetailsService {
 	private UserMapper mapper;
 	
 	@Override
-	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 		
-		UserDto user = mapper.findByUserName(userName);
+		UserDto user = mapper.getOne(userId);
 		if(user == null){
             throw new UsernameNotFoundException("ユーザ名またはパスワードが正しくありません。");
         }

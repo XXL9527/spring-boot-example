@@ -19,17 +19,8 @@
 	   FROM 
 	   		m_user
     </select>
-    
-    <select id="findByUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
-       SELECT 
-       		<include refid="Base_Column_List" />
-	   FROM 
-	   		m_user
-	   WHERE
-	   		user_name = #{userName}
-    </select>
 
-    <select id="getOne" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    <select id="getOne" resultMap="BaseResultMap" parameterType="java.lang.String" >
        SELECT 
        		<include refid="Base_Column_List" />
 	   FROM 
@@ -41,9 +32,9 @@
     <insert id="insert"  parameterType="com.example.beans.UserDto" >
        INSERT INTO 
        		m_user
-       		(user_name, passwd, role) 
+       		(user_id, user_name, passwd, role) 
        VALUES
-       		(#{userName}, #{password}, #{role})
+       		(#{userId}, #{userName}, #{password}, #{role})
     </insert>
     
     <update id="update" parameterType="com.example.beans.UserDto" >
@@ -57,7 +48,7 @@
        		user_id = #{userId}
     </update>
     
-    <delete id="delete" parameterType="java.lang.Long" >
+    <delete id="delete" parameterType="java.lang.String" >
        DELETE FROM
        		 m_user 
        WHERE 

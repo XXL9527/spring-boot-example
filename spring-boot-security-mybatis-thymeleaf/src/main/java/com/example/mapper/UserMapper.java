@@ -8,13 +8,11 @@ public interface UserMapper {
 
 	List<UserDto> getAll();
 	
-	UserDto getOne(Long id);
-	
-	UserDto findByUserName(String userName);
+	UserDto getOne(String id);
 
 	void insert(UserDto user);
 
 	void update(UserDto user);
 
-	void delete(Long id);
+	void delete(String id);
 }

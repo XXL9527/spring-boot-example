@@ -21,9 +21,14 @@ public class UserMapperTest {
 	@Test
 	public void testInsert() throws Exception {
 		
-		userMapper.insert(new UserDto("user01", "pass01", RoleEnum.USER));
-		userMapper.insert(new UserDto("user02", "pass02", RoleEnum.USER));
-		userMapper.insert(new UserDto("user03", "pass03", RoleEnum.ADMIN));
+		UserDto user = userMapper.getOne("user01");
+		if(user != null) {
+			return;
+		}
+		
+		userMapper.insert(new UserDto("user01", "テストユーザ０１", "pass01", RoleEnum.USER));
+		userMapper.insert(new UserDto("user02", "テストユーザ０２", "pass02", RoleEnum.USER));
+		userMapper.insert(new UserDto("user03", "テストユーザ０３", "pass03", RoleEnum.ADMIN));
 
 		Assert.assertEquals(3, userMapper.getAll().size());
 	}
@@ -33,28 +38,20 @@ public class UserMapperTest {
 		
 		RoleEnum role = RoleEnum.ADMIN;
 		UserDto user = new UserDto();
-		user.setUserId(101L);
+		user.setUserId("user01");
 		user.setRole(role);
 		
 		userMapper.update(user);
 		
-		UserDto assertUser = userMapper.getOne(101L);
+		UserDto assertUser = userMapper.getOne("user01");
 		Assert.assertTrue((role.equals(assertUser.getRole())));
-	}
-	
-	@Test
-	public void testFindByUsername() {
-		
-		UserDto user = userMapper.findByUserName("user01");
-		
-		Assert.assertNotNull(user);
 	}
 
 	@Test
 	public void testDelete() throws Exception {
-		userMapper.delete(101L);
+		userMapper.delete("user01");
 		
-		UserDto assertUser = userMapper.getOne(101L);
+		UserDto assertUser = userMapper.getOne("user01");
 		Assert.assertNull(assertUser);
 	}
 }
