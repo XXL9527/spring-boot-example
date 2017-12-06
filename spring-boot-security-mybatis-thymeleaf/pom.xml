@@ -6,7 +6,7 @@
     <groupId>com.example</groupId>
 	<artifactId>spring-boot-security-mybatis-thymeleaf</artifactId>
 	<version>1.0</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	
 	<name>spring-boot-security-mybatis-thymeleaf</name>
 	<description>Demo project for Spring Boot, Spring Security, Mybatis, Thymeleaf</description>
@@ -38,6 +38,17 @@
 	            </exclusion>
 	        </exclusions>
 	    </dependency>
+	    
+	    <!-- war生成時、Tomcatを除外するように、scopeをprovidedに設定 -->
+	    <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
 	    
         <!-- Spring Security -->
         <dependency>
