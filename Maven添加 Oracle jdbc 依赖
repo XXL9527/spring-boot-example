@@ -1,0 +1,13 @@
+Maven添加 Oracle jdbc 依赖
+
+※由于Oracle授权问题，Maven不提供Oracle JDBC driver，为了在Maven项目中应用Oracle JDBC driver,必须手动添加到本地仓库。
+1，官网下载：http://www.oracle.com/technetwork/database/features/jdbc/index-091264.html
+2，替换掉下面的命令中的-Dfile的path 以及 DartifactId， 然后执行
+  mvn install:install-file -Dfile=/Volumes/Data/Develop/db_drivers/ojdbc6.jar -DgroupId=com.oracle -DartifactId=ojdbc6 -Dversion=11.2.0 -Dpackaging=jar
+3，显示"BUILD SUCCESS"。
+ 就可以在maven项目里添加dependency，各坐标对应上面这个命令的个元素，如下：
+	<dependency>      
+	  <groupId>com.oracle</groupId>      
+	  <artifactId>ojdbc6</artifactId>      
+	  <version>11.2.0</version>
+	</dependency>  
